@@ -1,21 +1,23 @@
 defmodule Katabot.Application do
-  # See http://elixir-lang.org/docs/stable/elixir/Application.html
-  # for more information on OTP Applications
   @moduledoc false
 
   use Application
 
+  @webhook_settings Application.get_env(:katabot, :webhook)
+  @init %{token: @webhook_settings[:secret_token], parser: Katabot.Parser}
+
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
-    # Define workers and child supervisors to be supervised
     children = [
-      # Starts a worker by calling: Katabot.Worker.start_link(arg1, arg2, arg3)
-      # worker(Katabot.Worker, [arg1, arg2, arg3]),
+      Plug.Adapters.Cowboy.child_spec(
+        @webhook_settings[:protocol],
+        Katabot.Webhook,
+        @init,
+        @webhook_settings[:options]),
+      worker(Katabot.Parser, [])
     ]
 
-    # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Katabot.Supervisor]
     Supervisor.start_link(children, opts)
   end
