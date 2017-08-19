@@ -26,7 +26,7 @@ defmodule Katabot.Webhook do
   end
 
   defp parse_updates(conn, parser) do
-         {:ok, data, _none} = Plug.Conn.read_body(conn)
+         {:ok, data, _none} = read_body(conn)
          data = Poison.decode! data
 
          send parser, {:parse, data}

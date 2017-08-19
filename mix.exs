@@ -7,29 +7,28 @@ defmodule Katabot.Mixfile do
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     preferred_cli_env: [vcr: :test, "vcr.delete": :test, "vcr.check": :test, "vcr.show": :test],
+     aliases: aliases()]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type "mix help compile.app" for more information
+  defp aliases do
+    [
+      test: "test --no-start" #(2)
+    ]
+  end
+
   def application do
-    # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger, :cowboy, :plug],
+    [extra_applications: [:logger],
      mod: {Katabot.Application, []}]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:my_dep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:my_dep, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
   defp deps do
-    [{:poison, "~> 3.0"},
+    [{:poison, "~> 3.0", runtime: false},
+     {:exvcr, "~> 0.8", only: :test, runtime: false},
+     {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+     {:httpoison, "~> 0.13"},
+     {:nadia, "~> 0.4.2"},
      {:cowboy, "~> 1.1.2"},
      {:plug, "~> 1.3.5"}]
   end
