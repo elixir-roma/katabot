@@ -16,7 +16,12 @@ defmodule Katabot.Application do
         Katabot.Webhook,
         @init,
         @webhook_settings[:options]),
-      worker(Katabot.Parser, [Nadia])
+      worker(Katabot.CryptoCompare, []),
+      worker(Katabot.Parser, [Nadia, Katabot.CryptoCompare]),
+      supervisor(Task.Supervisor, [
+          [name: Katabot.SendResponseSupervisor, restart: :temporary]
+        ]
+      )
     ]
 
     opts = [strategy: :one_for_one, name: Katabot.Supervisor]

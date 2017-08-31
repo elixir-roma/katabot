@@ -24,5 +24,31 @@
       "status_code": 200,
       "type": "ok"
     }
+  },
+  {
+    "request": {
+      "body": "",
+      "headers": [],
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=ETH,USD,EUR"
+    },
+    "response": {
+      "body": "{\"ETH\":12.45,\"USD\":4864.5,\"EUR\":4105.94}",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Cache-Control": "public, max-age=29",
+        "CryptoCompare-Cache-HIT": "true",
+        "Date": "Sat, 19 Aug 2017 21:11:10 GMT",
+        "Connection": "keep-alive",
+        "Transfer-Encoding": "chunked"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
   }
 ]

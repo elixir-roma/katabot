@@ -15,7 +15,7 @@ defmodule Katabot.Webhook do
 
   def init(options), do: options
 
-  def call(conn = %Plug.Conn{request_path: path}, opts) do
+  def call(%Plug.Conn{request_path: path} = conn, opts) do
     unless String.strip(path, ?/) == opts[:token] do
       raise ForbiddenRequestError
     end
