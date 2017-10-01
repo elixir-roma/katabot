@@ -3,7 +3,7 @@ defmodule Katabot.Mixfile do
 
   def project do
     [app: :katabot,
-     version: "0.1.0",
+     version: "0.1.1",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -14,7 +14,7 @@ defmodule Katabot.Mixfile do
 
   defp aliases do
     [
-      test: "test --no-start" #(2)
+      test: "test --no-start"
     ]
   end
 
@@ -24,7 +24,9 @@ defmodule Katabot.Mixfile do
   end
 
   defp deps do
-    [{:poison, "~> 3.0", runtime: false},
+    [{:edeliver, "~> 1.4.4"},
+     {:distillery, ">= 0.8.0", warn_missing: false},
+     {:poison, "~> 3.0"},
      {:exvcr, "~> 0.8", only: :test, runtime: false},
      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
      {:httpoison, "~> 0.13"},

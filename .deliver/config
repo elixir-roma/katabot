@@ -1,0 +1,16 @@
+APP="katabot"
+
+BUILD_HOST="builder.elixir-roma.org"
+BUILD_USER="builder"
+BUILD_AT="/tmp/edeliver/currencybot/builds"
+
+PRODUCTION_HOSTS="web.elixir-roma.org"
+PRODUCTION_USER="web"
+DELIVER_TO="/home/web"
+
+pre_erlang_get_and_update_deps() {
+  local _prod_secret_path="/home/builder/currencybot.priv.exs"
+  __sync_remote "
+    ln -sfn '$_prod_secret_path' '$BUILD_AT/config/config.priv.exs'
+  "
+}
